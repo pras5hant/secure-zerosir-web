@@ -18,6 +18,12 @@
     </style>
 </head>
 <body>
-    <iframe src="https://sample-firebase-ai-app-eaf97.web.app/" title="Sample Firebase AI App"></iframe>
+    <iframe id="myIframe" title="Sample Firebase AI App"></iframe>
+    <script>
+        const encodedUrl = "aHR0cHM6Ly9zYW1wbGUtZmlyZWJhc2UtYWktYXBwLWVhZjk3LndlYi5hcHAv";
+        
+        const decodedUrl = atob(encodedUrl);
+        document.getElementById("myIframe").src = decodedUrl;
+    </script>
 </body>
 </html>
