@@ -3,21 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZEROSIR-RAKESHH POLYNOMIALS</title>
+    <title>ZERO SIR #THEOREM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            overflow: hidden;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        button {
+            padding: 12px 25px;
+            margin: 0 10px;
+            font-size: 1.1em;
+            font-weight: 700;
             border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #4ecdc4;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            transform: scale(1.1);
+            background-color: #45b7aa;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        #countdown {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #ffeb3b;
         }
     </style>
+    <script>
+        // Redirect to first URL after 2 seconds
+        let timeLeft = 2;
+        const countdown = document.createElement('div');
+        countdown.id = 'countdown';
+        document.body.appendChild(countdown);
+
+        function updateCountdown() {
+            countdown.textContent = `Redirecting in ${timeLeft} seconds...`;
+            if (timeLeft <= 0) {
+                window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
+            }
+            timeLeft--;
+        }
+
+        setInterval(updateCountdown, 1000);
+
+        // Function to redirect to first URL (FAST)
+        function redirectToFast() {
+            window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
+        }
+
+        // Function to redirect to second URL (SLOW)
+        function redirectToSlow() {
+            window.location.href = "https://sample-firebase-ai-app-eaf97.web.app";
+        }
+    </script>
 </head>
 <body>
-    <iframe src="https://sample-firebase-ai-app-eaf97.web.app/" title="Sample Firebase AI App"></iframe>
+    <h1>Choose a Redirect Option</h1>
+    <p>Click a button or wait 2 seconds to be redirected to FAST by default.</p>
+    <button onclick="redirectToFast()">FAST</button>
+    <button onclick="redirectToSlow()">SLOW</button>
 </body>
 </html>
