@@ -57,12 +57,18 @@
             color: #ffeb3b;
         }
     </style>
+</head>
+<body>
+    <h1>Choose a Redirect Option</h1>
+    <p>Click a button or wait 2 seconds to be redirected to FAST by default.</p>
+    <button onclick="redirectToFast()">FAST</button>
+    <button onclick="redirectToSlow()">SLOW</button>
+    <div id="countdown"></div>
+
     <script>
-        // Redirect to first URL after 2 seconds
+        // Redirect to first URL after 2 seconds with countdown
         let timeLeft = 2;
-        const countdown = document.createElement('div');
-        countdown.id = 'countdown';
-        document.body.appendChild(countdown);
+        const countdown = document.getElementById('countdown');
 
         function updateCountdown() {
             countdown.textContent = `Redirecting in ${timeLeft} seconds...`;
@@ -72,23 +78,26 @@
             timeLeft--;
         }
 
-        setInterval(updateCountdown, 1000);
+        // Start countdown and redirect
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        setTimeout(() => {
+            clearInterval(countdownInterval);
+            if (!window.location.href.includes("youware.com")) {
+                window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
+            }
+        }, 2000);
 
         // Function to redirect to first URL (FAST)
         function redirectToFast() {
+            clearInterval(countdownInterval);
             window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
         }
 
         // Function to redirect to second URL (SLOW)
         function redirectToSlow() {
+            clearInterval(countdownInterval);
             window.location.href = "https://sample-firebase-ai-app-eaf97.web.app";
         }
     </script>
-</head>
-<body>
-    <h1>Choose a Redirect Option</h1>
-    <p>Click a button or wait 2 seconds to be redirected to FAST by default.</p>
-    <button onclick="redirectToFast()">FAST</button>
-    <button onclick="redirectToSlow()">SLOW</button>
 </body>
 </html>
