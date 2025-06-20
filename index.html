@@ -11,24 +11,21 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             font-family: 'Poppins', sans-serif;
             color: #fff;
-            text-align: center;
+            transition: all 0.3s ease;
         }
         h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: font-size 0.3s ease;
         }
-        p {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.2em;
+        .button-group {
             margin-bottom: 20px;
-            opacity: 0.9;
         }
         button {
             padding: 12px 25px;
@@ -50,54 +47,87 @@
         button:active {
             transform: scale(0.95);
         }
-        #countdown {
-            font-family: 'Roboto', sans-serif;
+        .iframe-container {
+            width: 100%;
+            height: 0; /* Initially hidden */
+            border: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: height 0.3s ease;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Target the bottom bar in the first iframe */
+        #iframe1 footer, #iframe1 [class*="bottom"], #iframe1 [class*="youware"], #iframe1 [class*="reactions"] {
+            display: none !important;
+        }
+
+        /* Shrink header and buttons when iframe is active */
+        body.iframe-active h1 {
             font-size: 1.5em;
-            margin-top: 20px;
-            color: #ffeb3b;
+        }
+        body.iframe-active .button-group {
+            transform: scale(0.8);
+            margin-bottom: 10px;
+        }
+        body.iframe-active .iframe-container {
+            height: 100vh; /* Full page height when active */
         }
     </style>
 </head>
 <body>
-    <h1>Choose a Redirect Option</h1>
-    <p>Click a button or wait 2 seconds to be redirected to FAST by default.</p>
-    <button onclick="redirectToFast()">FAST</button>
-    <button onclick="redirectToSlow()">SLOW</button>
-    <div id="countdown"></div>
+    <h1>ZERO SIR #THEOREM</h1>
+    <div class="button-group">
+        <button onclick="loadWebsite('iframe1', 'https://www.youware.com/project/zerosir-crn8rlkgwe')">Load FAST</button>
+        <button onclick="loadWebsite('iframe2', 'https://sample-firebase-ai-app-eaf97.web.app')">Load SLOW</button>
+    </div>
+    <div class="iframe-container" id="iframe1-container">
+        <iframe id="iframe1" sandbox="allow-same-origin allow-scripts"></iframe>
+    </div>
+    <div class="iframe-container" id="iframe2-container">
+        <iframe id="iframe2" sandbox="allow-same-origin allow-scripts"></iframe>
+    </div>
 
     <script>
-        // Redirect to first URL after 2 seconds with countdown
-        let timeLeft = 2;
-        const countdown = document.getElementById('countdown');
+        let autoLoadTriggered = false;
 
-        function updateCountdown() {
-            countdown.textContent = `Redirecting in ${timeLeft} seconds...`;
-            if (timeLeft <= 0) {
-                window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
-            }
-            timeLeft--;
+        function loadWebsite(iframeId, url) {
+            // Prevent auto-load if manual click occurs
+            autoLoadTriggered = true;
+
+            // Hide all iframes and remove active class
+            document.querySelectorAll('.iframe-container').forEach(container => {
+                container.style.display = 'none';
+            });
+            document.body.classList.remove('iframe-active');
+
+            // Clear the previous iframe content
+            const iframe = document.getElementById(iframeId);
+            iframe.src = ''; // Clear the src to reset the iframe
+            const container = document.getElementById(iframeId + '-container');
+
+            // Set the new URL and show the iframe
+            iframe.src = url;
+            container.style.display = 'block';
+            document.body.classList.add('iframe-active');
+
+            // Adjust height dynamically
+            iframe.onload = () => {
+                iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+            };
         }
 
-        // Start countdown and redirect
-        const countdownInterval = setInterval(updateCountdown, 1000);
+        // Auto-load FAST website after 2 seconds if no manual click
         setTimeout(() => {
-            clearInterval(countdownInterval);
-            if (!window.location.href.includes("youware.com")) {
-                window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
+            if (!autoLoadTriggered) {
+                loadWebsite('iframe1', 'https://www.youware.com/project/zerosir-crn8rlkgwe');
             }
         }, 2000);
-
-        // Function to redirect to first URL (FAST)
-        function redirectToFast() {
-            clearInterval(countdownInterval);
-            window.location.href = "https://www.youware.com/project/zerosir-crn8rlkgwe";
-        }
-
-        // Function to redirect to second URL (SLOW)
-        function redirectToSlow() {
-            clearInterval(countdownInterval);
-            window.location.href = "https://sample-firebase-ai-app-eaf97.web.app";
-        }
     </script>
 </body>
 </html>
