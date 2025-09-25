@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,8 @@
         }
         .iframe-container {
             width: 100%;
-            height: 0; /* Initially hidden */
+            height: 0;
+            display: none; /* Initially hidden */
             border: none;
             position: fixed;
             top: 0;
@@ -62,11 +63,10 @@
             height: 100%;
             border: none;
         }
-        /* Target the bottom bar in the first iframe */
+        /* Target the bottom bar in the first iframe (may not work for cross-origin) */
         #iframe1 footer, #iframe1 [class*="bottom"], #iframe1 [class*="youware"], #iframe1 [class*="reactions"] {
             display: none !important;
         }
-
         /* Shrink header and buttons when iframe is active */
         body.iframe-active h1 {
             font-size: 1.5em;
@@ -75,15 +75,16 @@
             transform: scale(0.8);
             margin-bottom: 10px;
         }
-        body.iframe-active .iframe-container {
+        body.iframe-active .iframe-container.active {
             height: 100vh; /* Full page height when active */
+            display: block;
         }
     </style>
 </head>
 <body>
     <h1>ZERO SIR #THEOREM</h1>
     <div class="button-group">
-        <button onclick="loadWebsite('iframe1', 'https://www.youware.com/project/zerosir-crn8rlkgwe')">Load FAST</button>
+        <button onclick="loadWebsite('iframe1', 'https://youware.app/project/zerosir-crn8rlkgwe?enter_from=share&invite_code=7NWGITPG3L')">Load FAST</button>
         <button onclick="loadWebsite('iframe2', 'https://sample-firebase-ai-app-eaf97.web.app')">Load SLOW</button>
     </div>
     <div class="iframe-container" id="iframe1-container">
@@ -103,6 +104,7 @@
             // Hide all iframes and remove active class
             document.querySelectorAll('.iframe-container').forEach(container => {
                 container.style.display = 'none';
+                container.classList.remove('active');
             });
             document.body.classList.remove('iframe-active');
 
@@ -114,22 +116,23 @@
             // Set the new URL and show the iframe
             iframe.src = url;
             container.style.display = 'block';
+            container.classList.add('active');
             document.body.classList.add('iframe-active');
 
-            // Adjust height dynamically and handle load errors
+            // Handle load and errors
             iframe.onload = () => {
-                iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
                 console.log(`Loaded ${url} successfully`);
             };
             iframe.onerror = () => {
                 console.error(`Failed to load ${url}. Check for cross-origin restrictions or network issues.`);
+                alert(`Failed to load ${url}. Please check your connection or try again later.`);
             };
         }
 
         // Auto-load FAST website after 2 seconds if no manual click
         setTimeout(() => {
             if (!autoLoadTriggered) {
-                loadWebsite('iframe1', 'https://www.youware.com/project/zerosir-crn8rlkgwe');
+                loadWebsite('iframe1', 'https://youware.app/project/zerosir-crn8rlkgwe?enter_from=share&invite_code=7NWGITPG3L');
             }
         }, 2000);
     </script>
